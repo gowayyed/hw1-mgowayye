@@ -11,10 +11,12 @@ import org.apache.uima.jcas.cas.StringArray;
 import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.DocumentAnnotation;
 
-/** 
- * Updated by JCasGen Thu Sep 18 18:43:20 EDT 2014
- * XML source: /home/gowayyed/git/hw1-mgowayye/hw1-mgowayye/src/main/resources/aeTrainingDescriptor.xml
- * @generated */
+/**
+ * Updated by JCasGen Sat Sep 20 00:45:09 EDT 2014 XML source:
+ * /home/gowayyed/git/hw1-mgowayye/hw1-mgowayye/src/main/resources/aeTestingDescriptor.xml
+ * 
+ * @generated
+ */
 public class Token extends DocumentAnnotation {
   /**
    * @generated
@@ -35,15 +37,18 @@ public class Token extends DocumentAnnotation {
    * @return index of the type
    */
   @Override
-  public int getTypeIndexID() {return typeIndexID;}
- 
+  public int getTypeIndexID() {
+    return typeIndexID;
+  }
+
   /**
    * Never called. Disable default constructor
    * 
    * @generated
    */
-  protected Token() {/* intentionally empty block */}
-    
+  protected Token() {/* intentionally empty block */
+  }
+
   /**
    * Internal - constructor used by generator
    * 
@@ -57,7 +62,7 @@ public class Token extends DocumentAnnotation {
     super(addr, type);
     readObject();
   }
-  
+
   /**
    * @generated
    * @param jcas
@@ -65,8 +70,8 @@ public class Token extends DocumentAnnotation {
    */
   public Token(JCas jcas) {
     super(jcas);
-    readObject();   
-  } 
+    readObject();
+  }
 
   /**
    * @generated
@@ -82,7 +87,7 @@ public class Token extends DocumentAnnotation {
     setBegin(begin);
     setEnd(end);
     readObject();
-  }   
+  }
 
   public Token(Sentence sentence, int begin, int end) throws CASException {
     super(sentence.getCAS().getJCas());
@@ -92,10 +97,10 @@ public class Token extends DocumentAnnotation {
     readObject();
   }
 
-  /** 
+  /**
    * <!-- begin-user-doc --> Write your own initialization here <!-- end-user-doc -->
    *
-   * @generated modifiable 
+   * @generated modifiable
    */
   private void readObject() {/* default - does nothing empty block */
     try {
@@ -117,10 +122,12 @@ public class Token extends DocumentAnnotation {
    * @return value of the feature
    */
   public Sentence getSentence() {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_sentence == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_sentence == null)
       jcasType.jcas.throwFeatMissing("sentence", "ts.Token");
-    return (Sentence)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_sentence)));}
-    
+    return (Sentence) (jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr,
+            ((Token_Type) jcasType).casFeatCode_sentence)));
+  }
+
   /**
    * setter for sentence - sets
    * 
@@ -129,11 +136,12 @@ public class Token extends DocumentAnnotation {
    *          value to set into the feature
    */
   public void setSentence(Sentence v) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_sentence == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_sentence == null)
       jcasType.jcas.throwFeatMissing("sentence", "ts.Token");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Token_Type)jcasType).casFeatCode_sentence, jcasType.ll_cas.ll_getFSRef(v));}    
-   
-    
+    jcasType.ll_cas.ll_setRefValue(addr, ((Token_Type) jcasType).casFeatCode_sentence,
+            jcasType.ll_cas.ll_getFSRef(v));
+  }
+
   // *--------------*
   // * Feature: startIndex
 
@@ -144,10 +152,11 @@ public class Token extends DocumentAnnotation {
    * @return value of the feature
    */
   public int getStartIndex() {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_startIndex == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_startIndex == null)
       jcasType.jcas.throwFeatMissing("startIndex", "ts.Token");
-    return jcasType.ll_cas.ll_getIntValue(addr, ((Token_Type)jcasType).casFeatCode_startIndex);}
-    
+    return jcasType.ll_cas.ll_getIntValue(addr, ((Token_Type) jcasType).casFeatCode_startIndex);
+  }
+
   /**
    * setter for startIndex - sets The starting index of the token within the sentence.
    * 
@@ -156,11 +165,11 @@ public class Token extends DocumentAnnotation {
    *          value to set into the feature
    */
   public void setStartIndex(int v) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_startIndex == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_startIndex == null)
       jcasType.jcas.throwFeatMissing("startIndex", "ts.Token");
-    jcasType.ll_cas.ll_setIntValue(addr, ((Token_Type)jcasType).casFeatCode_startIndex, v);}    
-   
-    
+    jcasType.ll_cas.ll_setIntValue(addr, ((Token_Type) jcasType).casFeatCode_startIndex, v);
+  }
+
   // *--------------*
   // * Feature: endIndex
 
@@ -172,10 +181,11 @@ public class Token extends DocumentAnnotation {
    * @return value of the feature
    */
   public int getEndIndex() {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_endIndex == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_endIndex == null)
       jcasType.jcas.throwFeatMissing("endIndex", "ts.Token");
-    return jcasType.ll_cas.ll_getIntValue(addr, ((Token_Type)jcasType).casFeatCode_endIndex);}
-    
+    return jcasType.ll_cas.ll_getIntValue(addr, ((Token_Type) jcasType).casFeatCode_endIndex);
+  }
+
   /**
    * setter for endIndex - sets The index of the character after the last character of the token in
    * the sentence (to use substring directly).
@@ -185,11 +195,11 @@ public class Token extends DocumentAnnotation {
    *          value to set into the feature
    */
   public void setEndIndex(int v) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_endIndex == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_endIndex == null)
       jcasType.jcas.throwFeatMissing("endIndex", "ts.Token");
-    jcasType.ll_cas.ll_setIntValue(addr, ((Token_Type)jcasType).casFeatCode_endIndex, v);}    
-   
-    
+    jcasType.ll_cas.ll_setIntValue(addr, ((Token_Type) jcasType).casFeatCode_endIndex, v);
+  }
+
   // *--------------*
   // * Feature: label
 
@@ -200,10 +210,11 @@ public class Token extends DocumentAnnotation {
    * @return value of the feature
    */
   public String getLabel() {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_label == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_label == null)
       jcasType.jcas.throwFeatMissing("label", "ts.Token");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Token_Type)jcasType).casFeatCode_label);}
-    
+    return jcasType.ll_cas.ll_getStringValue(addr, ((Token_Type) jcasType).casFeatCode_label);
+  }
+
   /**
    * setter for label - sets
    * 
@@ -212,11 +223,11 @@ public class Token extends DocumentAnnotation {
    *          value to set into the feature
    */
   public void setLabel(String v) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_label == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_label == null)
       jcasType.jcas.throwFeatMissing("label", "ts.Token");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type)jcasType).casFeatCode_label, v);}    
-   
-    
+    jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type) jcasType).casFeatCode_label, v);
+  }
+
   // *--------------*
   // * Feature: featureVector
 
@@ -227,10 +238,12 @@ public class Token extends DocumentAnnotation {
    * @return value of the feature
    */
   public DoubleArray getFeatureVector() {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureVector == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureVector == null)
       jcasType.jcas.throwFeatMissing("featureVector", "ts.Token");
-    return (DoubleArray)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureVector)));}
-    
+    return (DoubleArray) (jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr,
+            ((Token_Type) jcasType).casFeatCode_featureVector)));
+  }
+
   /**
    * setter for featureVector - sets
    * 
@@ -239,10 +252,12 @@ public class Token extends DocumentAnnotation {
    *          value to set into the feature
    */
   public void setFeatureVector(DoubleArray v) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureVector == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureVector == null)
       jcasType.jcas.throwFeatMissing("featureVector", "ts.Token");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureVector, jcasType.ll_cas.ll_getFSRef(v));}    
-    
+    jcasType.ll_cas.ll_setRefValue(addr, ((Token_Type) jcasType).casFeatCode_featureVector,
+            jcasType.ll_cas.ll_getFSRef(v));
+  }
+
   /**
    * indexed getter for featureVector - gets an indexed value -
    * 
@@ -252,10 +267,15 @@ public class Token extends DocumentAnnotation {
    * @return value of the element at index i
    */
   public double getFeatureVector(int i) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureVector == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureVector == null)
       jcasType.jcas.throwFeatMissing("featureVector", "ts.Token");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureVector), i);
-    return jcasType.ll_cas.ll_getDoubleArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureVector), i);}
+    jcasType.jcas
+            .checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr,
+                    ((Token_Type) jcasType).casFeatCode_featureVector), i);
+    return jcasType.ll_cas
+            .ll_getDoubleArrayValue(jcasType.ll_cas.ll_getRefValue(addr,
+                    ((Token_Type) jcasType).casFeatCode_featureVector), i);
+  }
 
   /**
    * indexed setter for featureVector - sets an indexed value -
@@ -266,13 +286,17 @@ public class Token extends DocumentAnnotation {
    * @param v
    *          value to set into the array
    */
-  public void setFeatureVector(int i, double v) { 
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureVector == null)
+  public void setFeatureVector(int i, double v) {
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureVector == null)
       jcasType.jcas.throwFeatMissing("featureVector", "ts.Token");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureVector), i);
-    jcasType.ll_cas.ll_setDoubleArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureVector), i, v);}
-   
-    
+    jcasType.jcas
+            .checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr,
+                    ((Token_Type) jcasType).casFeatCode_featureVector), i);
+    jcasType.ll_cas
+            .ll_setDoubleArrayValue(jcasType.ll_cas.ll_getRefValue(addr,
+                    ((Token_Type) jcasType).casFeatCode_featureVector), i, v);
+  }
+
   // *--------------*
   // * Feature: featureNames
 
@@ -283,10 +307,12 @@ public class Token extends DocumentAnnotation {
    * @return value of the feature
    */
   public StringArray getFeatureNames() {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureNames == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureNames == null)
       jcasType.jcas.throwFeatMissing("featureNames", "ts.Token");
-    return (StringArray)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureNames)));}
-    
+    return (StringArray) (jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr,
+            ((Token_Type) jcasType).casFeatCode_featureNames)));
+  }
+
   /**
    * setter for featureNames - sets
    * 
@@ -295,10 +321,12 @@ public class Token extends DocumentAnnotation {
    *          value to set into the feature
    */
   public void setFeatureNames(StringArray v) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureNames == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureNames == null)
       jcasType.jcas.throwFeatMissing("featureNames", "ts.Token");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureNames, jcasType.ll_cas.ll_getFSRef(v));}    
-    
+    jcasType.ll_cas.ll_setRefValue(addr, ((Token_Type) jcasType).casFeatCode_featureNames,
+            jcasType.ll_cas.ll_getFSRef(v));
+  }
+
   /**
    * indexed getter for featureNames - gets an indexed value -
    * 
@@ -308,10 +336,15 @@ public class Token extends DocumentAnnotation {
    * @return value of the element at index i
    */
   public String getFeatureNames(int i) {
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureNames == null)
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureNames == null)
       jcasType.jcas.throwFeatMissing("featureNames", "ts.Token");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureNames), i);
-    return jcasType.ll_cas.ll_getStringArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureNames), i);}
+    jcasType.jcas.checkArrayBounds(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type) jcasType).casFeatCode_featureNames),
+            i);
+    return jcasType.ll_cas.ll_getStringArrayValue(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type) jcasType).casFeatCode_featureNames),
+            i);
+  }
 
   /**
    * indexed setter for featureNames - sets an indexed value -
@@ -322,12 +355,18 @@ public class Token extends DocumentAnnotation {
    * @param v
    *          value to set into the array
    */
-  public void setFeatureNames(int i, String v) { 
-    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_featureNames == null)
+  public void setFeatureNames(int i, String v) {
+    if (Token_Type.featOkTst && ((Token_Type) jcasType).casFeat_featureNames == null)
       jcasType.jcas.throwFeatMissing("featureNames", "ts.Token");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureNames), i);
-    jcasType.ll_cas.ll_setStringArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type)jcasType).casFeatCode_featureNames), i, v);}
-    public String getText() {
+    jcasType.jcas.checkArrayBounds(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type) jcasType).casFeatCode_featureNames),
+            i);
+    jcasType.ll_cas.ll_setStringArrayValue(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Token_Type) jcasType).casFeatCode_featureNames),
+            i, v);
+  }
+
+  public String getText() {
     return getSentence().getText().substring(getStartIndex(), getEndIndex());
   }
 

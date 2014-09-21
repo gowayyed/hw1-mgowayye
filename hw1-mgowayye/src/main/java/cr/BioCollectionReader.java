@@ -19,7 +19,6 @@ public class BioCollectionReader extends CollectionReader_ImplBase {
   private boolean read;
   
   public void initialize(){
-    // TODO load path here
     read = false;
   }
   @Override

@@ -1,4 +1,5 @@
 package misc;
+
 import org.apache.uima.jcas.cas.DoubleArray;
 import org.apache.uima.jcas.cas.FSArray;
 import org.apache.uima.jcas.cas.StringArray;
@@ -18,12 +19,15 @@ public class ExtractionPipe extends Pipe {
    */
   private static final long serialVersionUID = 1L;
 
-  public ExtractionPipe(String[] possibleLabels) {
+  private boolean addLabels = false;
+
+  public ExtractionPipe(String[] possibleLabels, boolean addLabels) {
     LabelAlphabet alphabet = new LabelAlphabet();
     for (int i = 0; i < possibleLabels.length; i++) {
       alphabet.lookupIndex(possibleLabels[i]);
     }
     setTargetAlphabet(alphabet);
+    this.addLabels = addLabels;
   }
 
   @Override
@@ -32,26 +36,33 @@ public class ExtractionPipe extends Pipe {
     FSArray tokens = sentence.getTokens();
 
     TokenSequence data = new TokenSequence(tokens.size());
+    // target is only used when this is training
     LabelSequence target = new LabelSequence((LabelAlphabet) getTargetAlphabet(), tokens.size());
     StringBuffer source = new StringBuffer();
     String text = "";
-            
+
     for (int i = 0; i < tokens.size(); i++) {
       ts.Token originalToken = sentence.getTokens(i);
       text = originalToken.getText();
       Token token = new Token(text);
-      
+
       // import feature from the original token
       StringArray featureNames = originalToken.getFeatureNames();
       DoubleArray featureVectors = originalToken.getFeatureVector();
-      
+
       for (int j = 0; j < featureNames.size(); j++) {
         token.setFeatureValue(featureNames.get(j), featureVectors.get(j));
       }
-      
+
       // Add token to data
       data.add(token);
-      target.add(originalToken.getLabel());
+      if (addLabels)
+        if(originalToken.getLabel() != null)
+          target.add(originalToken.getLabel());
+        else
+          target.add("O");
+      else
+        target.add("N");
 
       source.append(token.getText());
       source.append(" ");

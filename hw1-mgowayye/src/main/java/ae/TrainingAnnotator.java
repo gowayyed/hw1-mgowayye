@@ -10,6 +10,7 @@ import java.util.List;
 
 import misc.Base;
 import misc.ExtractionPipe;
+import misc.Util;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -18,13 +19,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 import ts.Sentence;
 import cc.mallet.fst.CRF;
-import cc.mallet.fst.CRFOptimizableByLabelLikelihood;
 import cc.mallet.fst.CRFTrainerByLabelLikelihood;
-import cc.mallet.fst.CRFTrainerByValueGradients;
-import cc.mallet.fst.CRFWriter;
 import cc.mallet.fst.PerClassAccuracyEvaluator;
-import cc.mallet.fst.TransducerTrainer;
-import cc.mallet.optimize.Optimizable;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.SerialPipes;
 import cc.mallet.pipe.TokenSequence2FeatureVectorSequence;
@@ -46,8 +42,9 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
       }
     }
     loadLabels(sentences);
-    String[] possibleLabels = { "B", "I", "O" };
-    train(sentences, new ExtractionPipe(possibleLabels));
+    String[] possibleLabels = {"N", "B", "I", "O" };
+    CRF crf = train(sentences, new ExtractionPipe(possibleLabels, true));
+    Util.saveModel(crf);
   }
 
   private void loadLabels(ArrayList<Sentence> sentences) {
@@ -67,37 +64,6 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
 
   // use the example of training CRF using Mallet:
   // https://github.com/jmcejuela/mallet/blob/master/src/cc/mallet/examples/TrainCRF.java
-  private CRF train2(List<Sentence> sentences, ExtractionPipe fpipe) {
-
-    ArrayList<Pipe> pipes = new ArrayList<Pipe>();
-    pipes.add(fpipe);
-    pipes.add(new TokenSequence2FeatureVectorSequence(true, true));
-
-    Pipe pipe = new SerialPipes(pipes);
-
-    InstanceList trainingInstances = new InstanceList(pipe);
-
-    String[] labelsAlphabet = { "B", "I", "O" }; // TODO move this to a configuration class
-    for (Sentence sentence : sentences) {
-      trainingInstances.addThruPipe(new Instance(sentence, labelsAlphabet, sentence.getId(),
-              sentence.getId()));
-    }
-    CRF crf = new CRF(pipe, null);
-    // TODO try different orders and report the difference in f measure
-    crf.addStatesForBiLabelsConnectedAsIn(trainingInstances);
-    // crf.addStatesForThreeQuarterLabelsConnectedAsIn(trainingInstances);
-
-    crf.addStartState();
-
-    CRFTrainerByLabelLikelihood trainer = new CRFTrainerByLabelLikelihood(crf);
-    trainer.setGaussianPriorVariance(10.0);
-
-    trainer.addEvaluator(new PerClassAccuracyEvaluator(trainingInstances, "training"));
-    trainer.train(trainingInstances);
-
-    return trainer.getCRF();
-  }
-
   private CRF train(List<Sentence> sentences, ExtractionPipe fpipe) {
 
     ArrayList<Pipe> pipes = new ArrayList<Pipe>();
@@ -108,7 +74,7 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
 
     InstanceList trainingInstances = new InstanceList(pipe);
 
-    String[] labelsAlphabet = { "B", "I", "O" }; // TODO move this to a configuration class
+    String[] labelsAlphabet = {"N", "B", "I", "O" }; // TODO move this to a configuration class
     for (Sentence sentence : sentences) {
       trainingInstances.addThruPipe(new Instance(sentence, labelsAlphabet, sentence.getId(),
               sentence.getId()));

@@ -9,8 +9,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
 /** 
- * Updated by JCasGen Thu Sep 18 18:43:20 EDT 2014
- * XML source: /home/gowayyed/git/hw1-mgowayye/hw1-mgowayye/src/main/resources/aeTrainingDescriptor.xml
+ * Updated by JCasGen Sat Sep 20 00:45:09 EDT 2014
+ * XML source: /home/gowayyed/git/hw1-mgowayye/hw1-mgowayye/src/main/resources/aeTestingDescriptor.xml
  * @generated */
 public class Mention extends Annotation {
   /**
@@ -176,7 +176,7 @@ public class Mention extends Annotation {
     if (Mention_Type.featOkTst && ((Mention_Type)jcasType).casFeat_sentence == null)
       jcasType.jcas.throwFeatMissing("sentence", "ts.Mention");
     jcasType.ll_cas.ll_setRefValue(addr, ((Mention_Type)jcasType).casFeatCode_sentence, jcasType.ll_cas.ll_getFSRef(v));}    
-    // taken from BANNER
+        // taken from BANNER
   public boolean overlaps(Mention mention2) {
     return this.getEndIndex() > mention2.getStartIndex()
             && this.getStartIndex() < mention2.getEndIndex();
