@@ -15,7 +15,10 @@ import org.apache.uima.util.ProgressImpl;
 public class BioCollectionReader extends CollectionReader_ImplBase {
 
   //TODO move this to a configuration file
-  private String path = "src/main/resources/data/sample.in";
+//  private String path = "src/main/resources/data/sample.in";
+  private String path = "hw1.in";
+  
+  
   private boolean read;
   
   public void initialize(){

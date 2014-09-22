@@ -3,6 +3,7 @@ package ae;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -18,7 +19,6 @@ import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.util.CoreMap;
 
 public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
@@ -69,69 +69,108 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
       // traversing the words in the current sentence
       // a CoreLabel is a CoreMap with additional token-specific methods
       int i = 0;
-      int star = 0;
+      
       for (CoreLabel t : sen.get(TokensAnnotation.class)) {
         // this is the text of the token
         String word = t.get(TextAnnotation.class);
 
         // this is the POS tag of the token
         String pos = t.get(PartOfSpeechAnnotation.class);
-        
-        star = sentence.getText().indexOf(PTBTokenizer.ptbToken2Text(word));
-        if (star > -1) {
-          try {
-            sentence.addToken(new Token(sentence, star, star + word.length()));
-          } catch (CASException e) {
-            e.printStackTrace();
-          }
 
-          Token token = sentence.getTokens(i++);
-          // Add features to token
-          token.addFeatureValue("W=" + token.getText().toLowerCase(), 1);
-          token.addFeatureValue("TA=" + word, 1);
-          token.addFeatureValue("POS=" + pos, 1);
+        try {
+          sentence.addToken(new Token(sentence, t.beginPosition(), t.endPosition()));
+        } catch (CASException e) {
+          e.printStackTrace();
+        }
 
-        } else
-          System.out.println("msa2 el 5eer");
-        // this is the parse tree of the current sentence
-        // Tree tree = sen.get(TreeAnnotation.class);
+        Token token = sentence.getTokens(i++);
+        // Add features to token
+        token.addFeatureValue("W=" + token.getText().toLowerCase(), 1);
+        token.addFeatureValue("TA=" + word, 1);
+        token.addFeatureValue("POS=" + pos, 1);
+        token.addFeatureValue("NC=" + getNumberClass(text), 1);
+        token.addFeatureValue("BNC=" + getBriefNumberClass(text), 1);
+        token.addFeatureValue("WC=" + getWordClass(text), 1);
+        token.addFeatureValue("BWC=" + getBriefWordClass(text), 1);
 
-        // this is the Stanford dependency graph of the current sentence
-        // SemanticGraph dependencies = sen.get(CollapsedCCProcessedDependenciesAnnotation.class);
+        addRegExFeatures(token);
+
       }
 
-      // int[] pos = null;
-      // if (posTagger != null) {
-      // pos = getPOS(tokens);
-      // token.addFeatureValue("POS=" + pos[i], 1);
-      // }
-      // if (lemmatiser != null) {
-      // String lemma;
-      // if (pos == null) {
-      // lemma = lemmatiser.lemmatize(text);
-      // } else
-      // lemma = lemmatiser.lemmatize(text, pos[i]);
-      // token.setFeatureValue("LW=" + lemma, 1);
-      // }
-      // if (useNumericNormalization) {
-      // token.setFeatureValue("NC=" + getNumberClass(text), 1);
-      // token.setFeatureValue("BNC=" + getBriefNumberClass(text), 1);
-      // }
-      // token.setFeatureValue("WC=" + getWordClass(text), 1);
-      // token.setFeatureValue("BWC=" + getBriefWordClass(text), 1);
-      //
-      // // Add token to data
-      // data.add(token);
-      // target.add(tag);
-      //
-      // source.append(token.getText());
-      // source.append(" ");
-      // }
-      //
-      // carrier.setData(data);
-      // carrier.setTarget(target);
-      // carrier.setSource(source);
-      // return carrier;
     }
+  }
+
+  // taken from BANNER pipes
+  private void addRegExFeatures(Token token) {
+    addPattern(token, "ALPHA", Pattern.compile("[A-Za-z]+"));
+    addPattern(token, "INITCAPS", Pattern.compile("[A-Z].*"));
+    addPattern(token, "UPPER-LOWER", Pattern.compile("[A-Z][a-z].*"));
+    addPattern(token, "LOWER-UPPER", Pattern.compile("[a-z]+[A-Z]+.*"));
+    addPattern(token, "ALLCAPS", Pattern.compile("[A-Z]+"));
+    addPattern(token, "MIXEDCAPS", Pattern.compile("[A-Z][a-z]+[A-Z][A-Za-z]*"));
+    addPattern(token, "SINGLECHAR", Pattern.compile("[A-Za-z]"));
+    addPattern(token, "SINGLEDIGIT", Pattern.compile("[0-9]"));
+    addPattern(token, "DOUBLEDIGIT", Pattern.compile("[0-9][0-9]"));
+    addPattern(token, "NUMBER", Pattern.compile("[0-9,]+"));
+    addPattern(token, "HASDIGIT", Pattern.compile(".*[0-9].*"));
+    addPattern(token, "ALPHANUMERIC", Pattern.compile(".*[0-9].*[A-Za-z].*"));
+    addPattern(token, "ALPHANUMERIC", Pattern.compile(".*[A-Za-z].*[0-9].*"));
+    addPattern(token, "LETTERS_NUMBERS", Pattern.compile("[0-9]+[A-Za-z]+"));
+    addPattern(token, "NUMBERS_LETTERS", Pattern.compile("[A-Za-z]+[0-9]+"));
+
+    addPattern(token, "HAS_DASH", Pattern.compile(".*-.*"));
+    addPattern(token, "HAS_QUOTE", Pattern.compile(".*'.*"));
+    addPattern(token, "HAS_SLASH", Pattern.compile(".*/.*"));
+
+    // Start second set of new features (to handle improvements in
+    // BaseTokenizer)
+    addPattern(token, "REALNUMBER", Pattern.compile("(-|\\+)?[0-9,]+(\\.[0-9]*)?%?"));
+    addPattern(token, "REALNUMBER", Pattern.compile("(-|\\+)?[0-9,]*(\\.[0-9]+)?%?"));
+    addPattern(token, "START_MINUS", Pattern.compile("-.*"));
+    addPattern(token, "START_PLUS", Pattern.compile("\\+.*"));
+    addPattern(token, "END_PERCENT", Pattern.compile(".*%"));
+  }
+
+  // the following method is taken from MALLET tooklkit from the implementation of RegexMatches pipe
+  private void addPattern(Token token, String feature, Pattern regex) {
+    String s = token.getText();
+    String conS = s;
+    if (conS.startsWith("("))
+      conS = conS.substring(1);
+    if (conS.endsWith(")") || conS.endsWith("."))
+      conS = conS.substring(0, conS.length() - 1);
+    if (regex.matcher(s).matches())
+      token.addFeatureValue(feature, 1.0);
+    if (conS.compareTo(s) != 0) {
+      if (regex.matcher(conS).matches())
+        token.addFeatureValue(feature, 1.0);
+    }
+  }
+
+  // the following functions are taken from BANNER
+  private String getNumberClass(String text) {
+    text = text.replaceAll("[0-9]", "0");
+    return text;
+  }
+
+  private String getWordClass(String text) {
+    text = text.replaceAll("[A-Z]", "A");
+    text = text.replaceAll("[a-z]", "a");
+    text = text.replaceAll("[0-9]", "0");
+    text = text.replaceAll("[^A-Za-z0-9]", "x");
+    return text;
+  }
+
+  private String getBriefNumberClass(String text) {
+    text = text.replaceAll("[0-9]+", "0");
+    return text;
+  }
+
+  private static String getBriefWordClass(String text) {
+    text = text.replaceAll("[A-Z]+", "A");
+    text = text.replaceAll("[a-z]+", "a");
+    text = text.replaceAll("[0-9]+", "0");
+    text = text.replaceAll("[^A-Za-z0-9]+", "x");
+    return text;
   }
 }
