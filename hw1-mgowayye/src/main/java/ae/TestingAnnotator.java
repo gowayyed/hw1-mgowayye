@@ -33,7 +33,7 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.Sequence;
 
 /**
- * This annotator is responsible for loading a CRF model and use it to predict gene names, then
+ * This analysis engine is responsible for loading a CRF model and using it to predict gene names, then
  * evaluate the predictions and saves them to an output file.
  * 
  * @author gowayyed

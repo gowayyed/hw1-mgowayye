@@ -14,12 +14,13 @@ public class Config {
   /**
    * The path of the file that stores the {@link CRF} model.
    */
-  public static String modelFile = "src/main/resources/data/model"; // TODO move this to a configuration file
-
+  //public static String modelFile = "src/main/resources/data/model";
+  public static String modelFile = "model";
   /**
    * The path of the output file to save the predictions of the model. Used by {@link TestingAnnotator}
    */
-  public static String outputFilename = "src/main/resources/data/sample-predicted.out";
+  public static String outputFilename = "hw1.out";
+  //public static String outputFilename = "src/main/resources/data/sample-predicted.out";
 
   /**
    * The path of the tagging file to be used in the evaluation by {@link TestingAnnotator}

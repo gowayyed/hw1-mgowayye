@@ -28,7 +28,7 @@ import cc.mallet.pipe.TokenSequence2FeatureVectorSequence;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 /**
- * This annotator is responsible for training a CRF model using Mallet library and stores the model to a file with path {@link #tagFilename}.
+ * This analysis engine is responsible for training a CRF model using Mallet library and stores the model to a file with path {@link #tagFilename}.
  *  
  * @author gowayyed
  *
