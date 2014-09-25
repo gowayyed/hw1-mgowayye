@@ -3,10 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.cmu.lti.11791.f14.hw1</groupId>
 	<artifactId>hw1-mgowayye</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<scm>
 		<connection>scm:git:git@github.com:gowayyed/hw1-mgowayye.git</connection>
 		<developerConnection>scm:git:git@github.com:gowayyed/hw1-mgowayye.git</developerConnection>
+    <tag>HEAD</tag>
   </scm>
 	<repositories>
 		<repository>
