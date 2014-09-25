@@ -27,15 +27,16 @@ import cc.mallet.pipe.SerialPipes;
 import cc.mallet.pipe.TokenSequence2FeatureVectorSequence;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
+
 /**
- * This analysis engine is responsible for training a CRF model using Mallet library and stores the model to a file with path {@link #tagFilename}.
- *  
+ * This analysis engine is responsible for training a CRF model using Mallet library and stores the
+ * model to a file with path {@link #tagFilename}.
+ * 
  * @author gowayyed
  *
  */
 public class TrainingAnnotator extends JCasAnnotator_ImplBase {
 
-  
   /**
    * The main process method that tarins, and saves the model.
    */
@@ -50,13 +51,15 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
         sentences.add((Sentence) ann);
       }
     }
-    loadLabels(sentences); // load labels from the 
+    loadLabels(sentences); // load labels from the
     CRF crf = train(sentences, new ExtractionPipe(Config.labelsAlphabet, true)); // train a CRF
     Util.saveModel(crf); // saves the CRF by serializing it to a file
   }
 
   /**
-   * loads the tags using the BANNER method of (Base.getTags) and add them to the {@link Sentence} objects.
+   * loads the tags using the BANNER method of (Base.getTags) and add them to the {@link Sentence}
+   * objects.
+   * 
    * @param sentences
    */
   private void loadLabels(ArrayList<Sentence> sentences) {
@@ -75,13 +78,14 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
   }
 
   /**
-   * The main training method. Following the example of training CRF using Mallet:
-   * // https://github.com/jmcejuela/mallet/blob/master/src/cc/mallet/examples/TrainCRF.java
+   * The main training method. Following the example of training CRF using Mallet: //
+   * https://github.com/jmcejuela/mallet/blob/master/src/cc/mallet/examples/TrainCRF.java
+   * 
    * @param sentences
    * @param fpipe
    * @return
    */
-  
+
   private CRF train(List<Sentence> sentences, ExtractionPipe fpipe) {
 
     ArrayList<Pipe> pipes = new ArrayList<Pipe>();
@@ -101,13 +105,12 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
     crf.addStatesForThreeQuarterLabelsConnectedAsIn(trainingInstances);
     crf.addStartState();
 
-    CRFTrainerByLabelLikelihood trainer = 
-      new CRFTrainerByLabelLikelihood(crf);
+    CRFTrainerByLabelLikelihood trainer = new CRFTrainerByLabelLikelihood(crf);
     trainer.setGaussianPriorVariance(10.0);
 
     trainer.addEvaluator(new PerClassAccuracyEvaluator(trainingInstances, "training"));
     trainer.train(trainingInstances);
-    
+
     return crf;
   }
 }

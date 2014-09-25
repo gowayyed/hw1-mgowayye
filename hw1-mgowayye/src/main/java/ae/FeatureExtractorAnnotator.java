@@ -222,8 +222,8 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
   }
 
   /**
-   * modifies the text such that it replaces all consecutive capical characters with A, all small characters
-   * with a, all numbers with 0, and otherwise add x.
+   * modifies the text such that it replaces all consecutive capical characters with A, all small
+   * characters with a, all numbers with 0, and otherwise add x.
    * 
    * @param text
    * @return

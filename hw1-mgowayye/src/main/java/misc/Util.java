@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
 import cc.mallet.fst.CRF;
+
 /**
  * a simple Util class
  * 
@@ -15,6 +16,7 @@ public class Util {
 
   /**
    * loads the {@link CRF} model from the file to be used in testing.
+   * 
    * @return
    */
   public static CRF loadModel() {
@@ -30,8 +32,10 @@ public class Util {
     }
     return crf;
   }
+
   /**
    * serializes a {@link CRF} model obtained after training to a file.
+   * 
    * @param crf
    */
   public static void saveModel(CRF crf) {

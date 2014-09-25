@@ -33,8 +33,8 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.Sequence;
 
 /**
- * This analysis engine is responsible for loading a CRF model and using it to predict gene names, then
- * evaluate the predictions and saves them to an output file.
+ * This analysis engine is responsible for loading a CRF model and using it to predict gene names,
+ * then evaluate the predictions and saves them to an output file.
  * 
  * @author gowayyed
  *
@@ -145,7 +145,8 @@ public class TestingAnnotator extends JCasAnnotator_ImplBase {
 
     for (Sentence sentence : sentences) {
       Instance instance = pipe.instanceFrom(new Instance(sentence, Config.labelsAlphabet, sentence
-              .getId(), sentence.getId())); // this method create the instance and passes it through all the pipes inside the SerialPipe pipe.
+              .getId(), sentence.getId())); // this method create the instance and passes it through
+                                            // all the pipes inside the SerialPipe pipe.
       Sequence predicted = crf.getMaxLatticeFactory()
               .newMaxLattice(crf, (FeatureVectorSequence) instance.getData()).bestOutputSequence();
       writeMentions(sentence, predicted);

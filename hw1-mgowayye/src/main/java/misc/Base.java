@@ -68,6 +68,7 @@ public abstract class Base {
 
   /**
    * returns the token index
+   * 
    * @param tokens
    * @param index
    * @return
@@ -82,11 +83,13 @@ public abstract class Base {
     }
     return -1;
   }
-/**
- * adds new mention to the {@link cc.mallet.types.Token} based on the tag parameter
- * @param sentence
- * @param tags
- */
+
+  /**
+   * adds new mention to the {@link cc.mallet.types.Token} based on the tag parameter
+   * 
+   * @param sentence
+   * @param tags
+   */
   public static void updateSentenceWithTags(Sentence sentence,
           HashMap<String, LinkedList<Base.Tag>> tags) {
     FSArray tokens = sentence.getTokens();
@@ -107,7 +110,8 @@ public abstract class Base {
   }
 
   /**
-   * represents a gene tag in a file 
+   * represents a gene tag in a file
+   * 
    * @author gowayyed
    *
    */

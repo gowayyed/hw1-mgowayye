@@ -33,6 +33,7 @@ public class ExtractionPipe extends Pipe {
 
   /**
    * constructs the pipe
+   * 
    * @param possibleLabels
    * @param addLabels
    */
