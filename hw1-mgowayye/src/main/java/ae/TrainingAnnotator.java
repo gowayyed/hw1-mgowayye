@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import misc.Base;
+import misc.Config;
 import misc.ExtractionPipe;
 import misc.Util;
 
@@ -26,31 +27,42 @@ import cc.mallet.pipe.SerialPipes;
 import cc.mallet.pipe.TokenSequence2FeatureVectorSequence;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-
+/**
+ * This annotator is responsible for training a CRF model using Mallet library and stores the model to a file with path {@link #tagFilename}.
+ *  
+ * @author gowayyed
+ *
+ */
 public class TrainingAnnotator extends JCasAnnotator_ImplBase {
 
-  private String tagFilename = "src/main/resources/data/sample.out";
-
+  
+  /**
+   * The main process method that tarins, and saves the model.
+   */
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
     Iterator<Annotation> fs = aJCas.getAnnotationIndex().iterator();
     ArrayList<Sentence> sentences = new ArrayList<Sentence>();
+    // filtering the annotations to take only the Sentences
     while (fs.hasNext()) {
       Annotation ann = fs.next();
       if (ann.getClass() == Sentence.class) {
         sentences.add((Sentence) ann);
       }
     }
-    loadLabels(sentences);
-    String[] possibleLabels = {"N", "B", "I", "O" };
-    CRF crf = train(sentences, new ExtractionPipe(possibleLabels, true));
-    Util.saveModel(crf);
+    loadLabels(sentences); // load labels from the 
+    CRF crf = train(sentences, new ExtractionPipe(Config.labelsAlphabet, true)); // train a CRF
+    Util.saveModel(crf); // saves the CRF by serializing it to a file
   }
 
+  /**
+   * loads the tags using the BANNER method of (Base.getTags) and add them to the {@link Sentence} objects.
+   * @param sentences
+   */
   private void loadLabels(ArrayList<Sentence> sentences) {
     BufferedReader tagFile;
     try {
-      tagFile = new BufferedReader(new FileReader(tagFilename));
+      tagFile = new BufferedReader(new FileReader(Config.tagFilename));
       HashMap<String, LinkedList<Base.Tag>> tags = Base.getTags(tagFile);
       tagFile.close();
       for (Sentence sentence : sentences) {
@@ -62,8 +74,14 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
     }
   }
 
-  // use the example of training CRF using Mallet:
-  // https://github.com/jmcejuela/mallet/blob/master/src/cc/mallet/examples/TrainCRF.java
+  /**
+   * The main training method. Following the example of training CRF using Mallet:
+   * // https://github.com/jmcejuela/mallet/blob/master/src/cc/mallet/examples/TrainCRF.java
+   * @param sentences
+   * @param fpipe
+   * @return
+   */
+  
   private CRF train(List<Sentence> sentences, ExtractionPipe fpipe) {
 
     ArrayList<Pipe> pipes = new ArrayList<Pipe>();
@@ -74,14 +92,12 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
 
     InstanceList trainingInstances = new InstanceList(pipe);
 
-    String[] labelsAlphabet = {"N", "B", "I", "O" }; // TODO move this to a configuration class
     for (Sentence sentence : sentences) {
-      trainingInstances.addThruPipe(new Instance(sentence, labelsAlphabet, sentence.getId(),
+      trainingInstances.addThruPipe(new Instance(sentence, Config.labelsAlphabet, sentence.getId(),
               sentence.getId()));
     }
 
     CRF crf = new CRF(pipe, null);
-    //crf.addStatesForLabelsConnectedAsIn(trainingInstances);
     crf.addStatesForThreeQuarterLabelsConnectedAsIn(trainingInstances);
     crf.addStartState();
 
@@ -89,15 +105,7 @@ public class TrainingAnnotator extends JCasAnnotator_ImplBase {
       new CRFTrainerByLabelLikelihood(crf);
     trainer.setGaussianPriorVariance(10.0);
 
-    //CRFTrainerByStochasticGradient trainer = 
-    //new CRFTrainerByStochasticGradient(crf, 1.0);
-
-    //CRFTrainerByL1LabelLikelihood trainer = 
-    //  new CRFTrainerByL1LabelLikelihood(crf, 0.75);
-
     trainer.addEvaluator(new PerClassAccuracyEvaluator(trainingInstances, "training"));
-//    trainer.addEvaluator(new PerClassAccuracyEvaluator(testingInstances, "testing"));
-//    trainer.addEvaluator(new TokenAccuracyEvaluator(testingInstances, "testing"));
     trainer.train(trainingInstances);
     
     return crf;

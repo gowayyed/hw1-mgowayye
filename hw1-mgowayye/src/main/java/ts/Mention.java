@@ -81,6 +81,13 @@ public class Mention extends Annotation {
     readObject();
   }   
 
+  /**
+   * constructs a {@link Mention} in a specific sentence and a start and end.
+   * @param sentence
+   * @param start
+   * @param end
+   * @throws CASException
+   */
   public Mention(Sentence sentence, int start, int end) throws CASException {
     super(sentence.getCAS().getJCas());
     setSentence(sentence);
@@ -182,6 +189,11 @@ public class Mention extends Annotation {
             && this.getStartIndex() < mention2.getEndIndex();
   }
 
+  /**
+   * compares two {@link Mention} objects and returns true if they are equal.
+   * @param mention2
+   * @return
+   */
   public boolean equalsM(Mention mention2) {
     return this.getSentence().getId().equals(mention2.getSentence().getId())
             && this.getStartIndex() == mention2.getStartIndex()

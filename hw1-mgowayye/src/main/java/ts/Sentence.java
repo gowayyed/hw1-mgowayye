@@ -13,10 +13,12 @@ import org.apache.uima.jcas.cas.FSArray;
 import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
-/** 
- * Updated by JCasGen Sat Sep 20 00:45:09 EDT 2014
- * XML source: /home/gowayyed/git/hw1-mgowayye/hw1-mgowayye/src/main/resources/aeTestingDescriptor.xml
- * @generated */
+/**
+ * Updated by JCasGen Sat Sep 20 00:45:09 EDT 2014 XML source:
+ * /home/gowayyed/git/hw1-mgowayye/hw1-mgowayye/src/main/resources/aeTestingDescriptor.xml
+ * 
+ * @generated
+ */
 public class Sentence extends Annotation {
   /**
    * @generated
@@ -37,15 +39,18 @@ public class Sentence extends Annotation {
    * @return index of the type
    */
   @Override
-  public int getTypeIndexID() {return typeIndexID;}
- 
+  public int getTypeIndexID() {
+    return typeIndexID;
+  }
+
   /**
    * Never called. Disable default constructor
    * 
    * @generated
    */
-  protected Sentence() {/* intentionally empty block */}
-    
+  protected Sentence() {/* intentionally empty block */
+  }
+
   /**
    * Internal - constructor used by generator
    * 
@@ -59,7 +64,7 @@ public class Sentence extends Annotation {
     super(addr, type);
     readObject();
   }
-  
+
   /**
    * @generated
    * @param jcas
@@ -67,8 +72,8 @@ public class Sentence extends Annotation {
    */
   public Sentence(JCas jcas) {
     super(jcas);
-    readObject();   
-  } 
+    readObject();
+  }
 
   /**
    * @generated
@@ -84,7 +89,7 @@ public class Sentence extends Annotation {
     setBegin(begin);
     setEnd(end);
     readObject();
-  }   
+  }
 
   public Sentence(JCas aJCas, int begin, int end, String id, String sentText) {
     super(aJCas);
@@ -96,10 +101,10 @@ public class Sentence extends Annotation {
     readObject();
   }
 
-  /** 
+  /**
    * <!-- begin-user-doc --> Write your own initialization here <!-- end-user-doc -->
    *
-   * @generated modifiable 
+   * @generated modifiable
    */
   private void readObject() {/* default - does nothing empty block */
     try {
@@ -121,10 +126,11 @@ public class Sentence extends Annotation {
    * @return value of the feature
    */
   public String getId() {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_id == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_id == null)
       jcasType.jcas.throwFeatMissing("id", "ts.Sentence");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_id);}
-    
+    return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type) jcasType).casFeatCode_id);
+  }
+
   /**
    * setter for id - sets The identifier of the sentence.
    * 
@@ -133,11 +139,11 @@ public class Sentence extends Annotation {
    *          value to set into the feature
    */
   public void setId(String v) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_id == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_id == null)
       jcasType.jcas.throwFeatMissing("id", "ts.Sentence");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_id, v);}    
-   
-    
+    jcasType.ll_cas.ll_setStringValue(addr, ((Sentence_Type) jcasType).casFeatCode_id, v);
+  }
+
   // *--------------*
   // * Feature: text
 
@@ -148,10 +154,11 @@ public class Sentence extends Annotation {
    * @return value of the feature
    */
   public String getText() {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_text == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_text == null)
       jcasType.jcas.throwFeatMissing("text", "ts.Sentence");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_text);}
-    
+    return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type) jcasType).casFeatCode_text);
+  }
+
   /**
    * setter for text - sets The text content of the sentence.
    * 
@@ -160,11 +167,11 @@ public class Sentence extends Annotation {
    *          value to set into the feature
    */
   public void setText(String v) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_text == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_text == null)
       jcasType.jcas.throwFeatMissing("text", "ts.Sentence");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_text, v);}    
-   
-    
+    jcasType.ll_cas.ll_setStringValue(addr, ((Sentence_Type) jcasType).casFeatCode_text, v);
+  }
+
   // *--------------*
   // * Feature: tokens
 
@@ -175,10 +182,12 @@ public class Sentence extends Annotation {
    * @return value of the feature
    */
   public FSArray getTokens() {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_tokens == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_tokens == null)
       jcasType.jcas.throwFeatMissing("tokens", "ts.Sentence");
-    return (FSArray)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_tokens)));}
-    
+    return (FSArray) (jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr,
+            ((Sentence_Type) jcasType).casFeatCode_tokens)));
+  }
+
   /**
    * setter for tokens - sets
    * 
@@ -187,10 +196,12 @@ public class Sentence extends Annotation {
    *          value to set into the feature
    */
   public void setTokens(FSArray v) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_tokens == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_tokens == null)
       jcasType.jcas.throwFeatMissing("tokens", "ts.Sentence");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_tokens, jcasType.ll_cas.ll_getFSRef(v));}    
-    
+    jcasType.ll_cas.ll_setRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_tokens,
+            jcasType.ll_cas.ll_getFSRef(v));
+  }
+
   /**
    * indexed getter for tokens - gets an indexed value -
    * 
@@ -200,10 +211,14 @@ public class Sentence extends Annotation {
    * @return value of the element at index i
    */
   public Token getTokens(int i) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_tokens == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_tokens == null)
       jcasType.jcas.throwFeatMissing("tokens", "ts.Sentence");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_tokens), i);
-    return (Token)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_tokens), i)));}
+    jcasType.jcas.checkArrayBounds(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_tokens), i);
+    return (Token) (jcasType.ll_cas
+            .ll_getFSForRef(jcasType.ll_cas.ll_getRefArrayValue(jcasType.ll_cas.ll_getRefValue(
+                    addr, ((Sentence_Type) jcasType).casFeatCode_tokens), i)));
+  }
 
   /**
    * indexed setter for tokens - sets an indexed value -
@@ -214,13 +229,16 @@ public class Sentence extends Annotation {
    * @param v
    *          value to set into the array
    */
-  public void setTokens(int i, Token v) { 
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_tokens == null)
+  public void setTokens(int i, Token v) {
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_tokens == null)
       jcasType.jcas.throwFeatMissing("tokens", "ts.Sentence");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_tokens), i);
-    jcasType.ll_cas.ll_setRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_tokens), i, jcasType.ll_cas.ll_getFSRef(v));}
-   
-    
+    jcasType.jcas.checkArrayBounds(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_tokens), i);
+    jcasType.ll_cas.ll_setRefArrayValue(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_tokens), i,
+            jcasType.ll_cas.ll_getFSRef(v));
+  }
+
   // *--------------*
   // * Feature: mentions
 
@@ -231,10 +249,12 @@ public class Sentence extends Annotation {
    * @return value of the feature
    */
   public FSArray getMentions() {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_mentions == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_mentions == null)
       jcasType.jcas.throwFeatMissing("mentions", "ts.Sentence");
-    return (FSArray)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_mentions)));}
-    
+    return (FSArray) (jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr,
+            ((Sentence_Type) jcasType).casFeatCode_mentions)));
+  }
+
   /**
    * setter for mentions - sets
    * 
@@ -243,10 +263,12 @@ public class Sentence extends Annotation {
    *          value to set into the feature
    */
   public void setMentions(FSArray v) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_mentions == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_mentions == null)
       jcasType.jcas.throwFeatMissing("mentions", "ts.Sentence");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_mentions, jcasType.ll_cas.ll_getFSRef(v));}    
-    
+    jcasType.ll_cas.ll_setRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_mentions,
+            jcasType.ll_cas.ll_getFSRef(v));
+  }
+
   /**
    * indexed getter for mentions - gets an indexed value -
    * 
@@ -256,10 +278,15 @@ public class Sentence extends Annotation {
    * @return value of the element at index i
    */
   public Mention getMentions(int i) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_mentions == null)
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_mentions == null)
       jcasType.jcas.throwFeatMissing("mentions", "ts.Sentence");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_mentions), i);
-    return (Mention)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_mentions), i)));}
+    jcasType.jcas.checkArrayBounds(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_mentions),
+            i);
+    return (Mention) (jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefArrayValue(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_mentions),
+            i)));
+  }
 
   /**
    * indexed setter for mentions - sets an indexed value -
@@ -270,12 +297,21 @@ public class Sentence extends Annotation {
    * @param v
    *          value to set into the array
    */
-  public void setMentions(int i, Mention v) { 
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_mentions == null)
+  public void setMentions(int i, Mention v) {
+    if (Sentence_Type.featOkTst && ((Sentence_Type) jcasType).casFeat_mentions == null)
       jcasType.jcas.throwFeatMissing("mentions", "ts.Sentence");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_mentions), i);
-    jcasType.ll_cas.ll_setRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_mentions), i, jcasType.ll_cas.ll_getFSRef(v));}
-      public void addToken(Token token) {
+    jcasType.jcas.checkArrayBounds(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_mentions),
+            i);
+    jcasType.ll_cas.ll_setRefArrayValue(
+            jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type) jcasType).casFeatCode_mentions),
+            i, jcasType.ll_cas.ll_getFSRef(v));
+  }
+/**
+ * add {@link Token} to the list of tokens.
+ * @param token
+ */
+  public void addToken(Token token) {
     FSArray fna = getTokens();
     Token[] fn = new Token[fna.size() + 1];
     fna.copyToArray(0, fn, 0, fna.size());
@@ -291,6 +327,10 @@ public class Sentence extends Annotation {
     setTokens(fna);
   }
 
+  /**
+   * it adds or merge (in case it is already here) a {@link Mention} to the list of mentions.
+   * @param mention
+   */
   public void addOrMergeMention(Mention mention) {
     if (!mention.getSentence().equals(this))
       throw new IllegalArgumentException();
@@ -316,6 +356,10 @@ public class Sentence extends Annotation {
     }
   }
 
+  /**
+   * removes a {@link Mention} from the list of mentions
+   * @param mention2
+   */
   private void removeMention(Mention mention2) {
     FSArray fna = getMentions();
     Mention[] fn = new Mention[fna.size() - 1];
@@ -332,7 +376,10 @@ public class Sentence extends Annotation {
     fna.copyFromArray(fn, 0, 0, fn.length);
     setMentions(fna);
   }
-
+  /**
+   * adds a {@link Mention} to the list of mentions.
+   * @param mention
+   */
   private void addMention(ts.Mention mention) {
     FSArray fna = getMentions();
     Mention[] fn = new Mention[fna.size() + 1];
@@ -347,19 +394,22 @@ public class Sentence extends Annotation {
     setMentions(fna);
   }
 
+  /**
+   * updates the {@link Token} list with the {@link Mention} list obtained.
+   */
   public void UpdateTokensWithTags() {
     FSArray mentions = getMentions();
     for (int i = 0; i < mentions.size(); i++) {
-      Mention m = (Mention)mentions.get(i);
+      Mention m = (Mention) mentions.get(i);
       getTokens(m.getStartIndex()).setLabel("B");
-      for (int j = m.getStartIndex()+1; j < m.getEndIndex(); j++) {
+      for (int j = m.getStartIndex() + 1; j < m.getEndIndex(); j++) {
         getTokens(j).setLabel("I");
       }
     }
     FSArray tokens = getTokens();
     for (int i = 0; i < tokens.size(); i++) {
-      Token token = (Token)tokens.get(i);
-      if(token.getLabel() == null)
+      Token token = (Token) tokens.get(i);
+      if (token.getLabel() == null)
         token.setLabel("O");
     }
   }

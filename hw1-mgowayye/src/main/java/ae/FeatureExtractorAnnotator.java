@@ -21,8 +21,31 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
+/**
+ * This annotator is responsible for extracting the features for each token of the {@link Sentence}.
+ * It uses {@link StanfordCoreNLP} classes to 1) tokenize 2) get POS tags. It also extracts other
+ * features the same as BANNER system does: Regular Expression features and other linguistic
+ * features.
+ * 
+ * This annotator is generic to work with either training or testing. It is also independent from
+ * the learning algorithm and independent from the learning library. In contrast to the BANNER
+ * library in which both feature extraction and learning are done using the Mallet library, I
+ * separated feature extraction from learning for a better design, so that I have the ability to
+ * compare the performance when using different learning algorithms or even different libraries
+ * without needing to change my feature extraction annotator.
+ * 
+ * @author gowayyed
+ *
+ */
 public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
 
+  /**
+   * The main method that loops over all the {@link Sentence} objects in the {@link JCas} and call
+   * the {@link #extractFeatures(Sentence)} method to extract the features. Features are added to
+   * the {@link Token} object to be used afterwards by the learning component either for training or
+   * testing.
+   * 
+   */
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
     Iterator<Annotation> fs = aJCas.getAnnotationIndex().iterator();
@@ -35,18 +58,15 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
     }
   }
 
-  private void extractFeatures(Sentence sentence) {
-    // The following code is customised from BANNER
-    // try {
-    // SimpleTokenizer.tokenize(sentence);
-    // } catch (CASException e) {
-    // e.printStackTrace();
-    // }
-    // TokenSequence data = new TokenSequence(tokens.length);
-    // LabelSequence target = new LabelSequence((LabelAlphabet) getTargetAlphabet(), tokens.length);
-    // StringBuffer source = new StringBuffer();
-    // int size = sentence.getTokens().size();
+  /**
+   * This method uses {@link StanfordCoreNLP} to tokenize, pos, and lemmatize a sentence. Then it
+   * creates {@link Token} objects and adds them to the sentence. Then, it extracts features for
+   * each token and adds them to the {@link Token} objects.
+   * 
+   * @param sentence
+   */
 
+  private void extractFeatures(Sentence sentence) {
     Properties props = new Properties();
     props.put("annotators", "tokenize, ssplit, pos, lemma");
     StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -69,22 +89,23 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
       // traversing the words in the current sentence
       // a CoreLabel is a CoreMap with additional token-specific methods
       int i = 0;
-      
+
       for (CoreLabel t : sen.get(TokensAnnotation.class)) {
         // this is the text of the token
         String word = t.get(TextAnnotation.class);
-
         // this is the POS tag of the token
         String pos = t.get(PartOfSpeechAnnotation.class);
-
         try {
           sentence.addToken(new Token(sentence, t.beginPosition(), t.endPosition()));
         } catch (CASException e) {
           e.printStackTrace();
         }
-
         Token token = sentence.getTokens(i++);
-        // Add features to token
+
+        // The following code is customised from BANNER, while BANNER uses the mallet Token class
+        // and adds the features directly to it. I store them first in my ts.Token class and in the
+        // learning phase, I fill a mallet Token with whatever features I extracted here.
+
         token.addFeatureValue("W=" + token.getText().toLowerCase(), 1);
         token.addFeatureValue("TA=" + word, 1);
         token.addFeatureValue("POS=" + pos, 1);
@@ -99,6 +120,10 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
 
     }
   }
+
+  /**
+   * Adds the RegEx features. It uses the features used in BANNER.
+   */
 
   // taken from BANNER pipes
   private void addRegExFeatures(Token token) {
@@ -131,8 +156,18 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
     addPattern(token, "END_PERCENT", Pattern.compile(".*%"));
   }
 
-  // the following method is taken from MALLET tooklkit from the implementation of RegexMatches pipe
+  /**
+   * This function adds the feature provided as (feature) to be one in the token if the token text
+   * follows the regex pattern
+   * 
+   * @param token
+   * @param feature
+   * @param regex
+   */
+
   private void addPattern(Token token, String feature, Pattern regex) {
+    // the following method is taken from MALLET tooklkit from the implementation of RegexMatches
+    // pipe
     String s = token.getText();
     String conS = s;
     if (conS.startsWith("("))
@@ -147,12 +182,26 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
     }
   }
 
-  // the following functions are taken from BANNER
+  // the following four functions are taken from BANNER
+
+  /**
+   * replaces all the numbers in the text to become zero
+   * 
+   * @param text
+   * @return
+   */
   private String getNumberClass(String text) {
     text = text.replaceAll("[0-9]", "0");
     return text;
   }
 
+  /**
+   * modifies the text such that it replaces all capical characters with A, all small characters
+   * with a, all numbers with 0, and otherwise add x.
+   * 
+   * @param text
+   * @return
+   */
   private String getWordClass(String text) {
     text = text.replaceAll("[A-Z]", "A");
     text = text.replaceAll("[a-z]", "a");
@@ -161,12 +210,25 @@ public class FeatureExtractorAnnotator extends JCasAnnotator_ImplBase {
     return text;
   }
 
+  /**
+   * replaces all the consecutive numbers in the text to become zero
+   * 
+   * @param text
+   * @return
+   */
   private String getBriefNumberClass(String text) {
     text = text.replaceAll("[0-9]+", "0");
     return text;
   }
 
-  private static String getBriefWordClass(String text) {
+  /**
+   * modifies the text such that it replaces all consecutive capical characters with A, all small characters
+   * with a, all numbers with 0, and otherwise add x.
+   * 
+   * @param text
+   * @return
+   */
+  private String getBriefWordClass(String text) {
     text = text.replaceAll("[A-Z]+", "A");
     text = text.replaceAll("[a-z]+", "a");
     text = text.replaceAll("[0-9]+", "0");

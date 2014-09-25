@@ -12,6 +12,13 @@ import cc.mallet.types.LabelSequence;
 import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 
+/**
+ * This class is responsible for converting the features in {@link ts.Token} to the features in
+ * {@link Token}. It extends the {@link Pipe} to be able to be run on each {@link Instance}
+ * 
+ * @author gowayyed
+ *
+ */
 public class ExtractionPipe extends Pipe {
 
   /**
@@ -19,8 +26,16 @@ public class ExtractionPipe extends Pipe {
    */
   private static final long serialVersionUID = 1L;
 
+  /**
+   * whether we should add labels: while training, or not: while testing.
+   */
   private boolean addLabels = false;
 
+  /**
+   * constructs the pipe
+   * @param possibleLabels
+   * @param addLabels
+   */
   public ExtractionPipe(String[] possibleLabels, boolean addLabels) {
     LabelAlphabet alphabet = new LabelAlphabet();
     for (int i = 0; i < possibleLabels.length; i++) {
@@ -30,6 +45,9 @@ public class ExtractionPipe extends Pipe {
     this.addLabels = addLabels;
   }
 
+  /**
+   * The main methods that is run over each {@link Instance}.
+   */
   @Override
   public Instance pipe(Instance carrier) {
     Sentence sentence = (Sentence) carrier.getData();
@@ -57,7 +75,7 @@ public class ExtractionPipe extends Pipe {
       // Add token to data
       data.add(token);
       if (addLabels)
-        if(originalToken.getLabel() != null)
+        if (originalToken.getLabel() != null)
           target.add(originalToken.getLabel());
         else
           target.add("O");

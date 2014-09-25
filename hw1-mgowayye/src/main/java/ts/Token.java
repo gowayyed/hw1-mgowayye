@@ -6,7 +6,6 @@ import org.apache.uima.cas.CASException;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.DoubleArray;
-import org.apache.uima.jcas.cas.FSArray;
 import org.apache.uima.jcas.cas.StringArray;
 import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.DocumentAnnotation;
@@ -366,10 +365,19 @@ public class Token extends DocumentAnnotation {
             i, v);
   }
 
+  /**
+   * gets the text of the {@link Token}
+   * @return
+   */
   public String getText() {
     return getSentence().getText().substring(getStartIndex(), getEndIndex());
   }
 
+  /**
+   * This method adds feature values to the {@link Token}
+   * @param string
+   * @param val
+   */
   public void addFeatureValue(String string, double val) {
     StringArray fna = getFeatureNames();
     String[] fn = new String[fna.size() + 1];
